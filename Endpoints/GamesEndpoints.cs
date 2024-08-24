@@ -35,19 +35,19 @@ public static class GamesEndpoints
     ];
 
     //this WebApplication app: The this keyword here indicates that MapGameEndpoints is an extension method for the WebApplication class. Extension methods allow you to "add" methods to existing types without modifying the original type or creating a new derived type.
-    public static WebApplication MapGameEndpoints(this WebApplication app)
+    public static RouteGroupBuilder MapGameEndpoints(this WebApplication app)
     {
+        var group = app.MapGroup("games");
         //GET
-        app.MapGet("/", () => "Hello World!");
-        app.MapGet("/games", () => games);
-        app.MapGet("/games/{id}", (int id) =>
+        group.MapGet("/", () => games);
+        group.MapGet("/{id}", (int id) =>
         {
             GameDto? foundGame = games.Find(game => game.Id == id);
             return foundGame is null ? Results.NotFound() : Results.Ok(foundGame);
         }).WithName(GetGameEndpointName);
 
         //POST
-        app.MapPost("/games", (CreateGameDto newGame) =>
+        group.MapPost("/", (CreateGameDto newGame) =>
         {
             GameDto game = new(
                 games.Count + 1,
@@ -66,7 +66,7 @@ public static class GamesEndpoints
         });
 
         //UPDATE GAME/ PUT
-        app.MapPut("/games/{id}", (int id, UpdateGameDto updateGame) =>
+        group.MapPut("/{id}", (int id, UpdateGameDto updateGame) =>
         {
             var index = games.FindIndex(game => game.Id == id);
 
@@ -83,12 +83,12 @@ public static class GamesEndpoints
         });
 
         // DELETE
-        app.MapDelete("/games/{id}", (int id) =>
+        group.MapDelete("/{id}", (int id) =>
         {
             games.RemoveAll(game => game.Id == id);
             return Results.NoContent();
         });
-        return app;
+        return group;
     }
 
 }
