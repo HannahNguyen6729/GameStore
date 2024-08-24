@@ -37,7 +37,7 @@ public static class GamesEndpoints
     //this WebApplication app: The this keyword here indicates that MapGameEndpoints is an extension method for the WebApplication class. Extension methods allow you to "add" methods to existing types without modifying the original type or creating a new derived type.
     public static RouteGroupBuilder MapGameEndpoints(this WebApplication app)
     {
-        var group = app.MapGroup("games");
+        var group = app.MapGroup("games").WithParameterValidation();
         //GET
         group.MapGet("/", () => games);
         group.MapGet("/{id}", (int id) =>
@@ -63,7 +63,7 @@ public static class GamesEndpoints
                 new { id = game.Id },
                 game
                 );
-        });
+        }).WithParameterValidation();
 
         //UPDATE GAME/ PUT
         group.MapPut("/{id}", (int id, UpdateGameDto updateGame) =>
