@@ -29,3 +29,7 @@ dotnet ef migrations add InitialCreate --output-dir Data\Migrations
 // use the next command to execute migration to create file GameStore.db: dotnet ef database update
 
 //create method: public static void MigrateDb(this WebApplication app): this is an extended method that helps to add functionality "migrate database" to the object WebApplication. So whenever you hit the command: dotnet run, the migration is executed instead of using the command "dotnet ef database update"
+
+//seeding data:
+OnModelCreating()
+command: dotnet ef migrations add SeedGenres --output-dir Data\Migrations
