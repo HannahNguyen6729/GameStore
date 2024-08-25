@@ -20,3 +20,10 @@ dotnet tool install --global dotnet-ef --version 8.0.8
 //install new package: Microsoft.EntityFrameworkCore.Design
 --> this package helps to generate entity framework migration
 command: dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.8
+
+// start a new migration by using this command:
+dotnet ef migrations add InitialCreate --output-dir Data\Migrations
+
+// To undo this action, use 'ef migrations remove'
+
+// use the next command to execute migration: dotnet ef database update
