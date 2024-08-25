@@ -11,10 +11,10 @@ POST http://localhost:5247/games
 Content-Type: application/json
 
 {
-    "name": "MineCraft",
-    "genre":"Action,Humor",
-    "price":20,
-    "releaseDate": "2018-10-26"
+    "name": "ShootingStar",
+    "genreId":3,
+    "price":60,
+    "releaseDate": "2000-01-19"
 }
 
 
